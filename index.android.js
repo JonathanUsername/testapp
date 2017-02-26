@@ -35,13 +35,9 @@ export default class testapp extends Component {
         const highValues = oldState.filter(i => i > MAX_ACCELERATION);
 
         if (highValues.length > 0) {
-
+            return {x,y,z,tooMuch: true};
         }
-        return {
-            x: float2(data.x),
-            y: float2(data.y),
-            z: float2(data.z)
-        };
+        return {x,y,z,tooMuch: false};
     }
 
     toggleSensor = () => {
@@ -61,7 +57,7 @@ export default class testapp extends Component {
     };
 
     render() {
-        const {sensing, x, y, z} = this.state;
+        const {sensing, x, y, z, tooMuch} = this.state;
         return (
             <View style={styles.container}>
                 <Text style={styles.welcome}>
@@ -73,7 +69,7 @@ export default class testapp extends Component {
                     </Text>
                 </TouchableHighlight>
                 {sensing && (
-                    <View>
+                    <View style={{backgroundColor: tooMuch ? 'red' : 'white'}}>
                         <Text style={styles.welcome}>
                             {x}
                         </Text>
